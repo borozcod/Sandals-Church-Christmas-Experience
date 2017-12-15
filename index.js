@@ -40,6 +40,6 @@ io.on('connection', function (socket) {
 app.use('/images', express.static(__dirname + "/images"));
 
 
-http.listen(8080, function(){
-
-});
+// http.listen(8080, function(){
+//
+// });
