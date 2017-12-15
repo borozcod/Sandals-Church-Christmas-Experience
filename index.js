@@ -1,31 +1,23 @@
+var http = require('http');
+var express = require('express');
+var app = express();
 
-const express = require('express');
-const socketIO = require('socket.io');
-const path = require('path');
+var server = http.createServer(app);
+// Pass a http.Server instance to the listen method
+var io = require('socket.io').listen(server);
 
-const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'index.html');
+server.listen(3000);
 
-const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+app.use(express.static(__dirname + '/node_modules'));
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
 
-  const io = socketIO(server);
+});
 
-// var express = require('express');
-// var app = express();
-// var http = require('http').Server(app);
-// var io = require('socket.io')(http);
+app.get('/admin', function(req, res){
+  res.sendFile(__dirname + '/admin.html');
 
-// app.get('/', function(req, res){
-//   res.sendFile(__dirname + '/index.html');
-//
-// });
-
-// app.get('/admin', function(req, res){
-//   res.sendFile(__dirname + '/admin.html');
-//
-// });
+});
 
 var color = "#000";
 var campus = '';
@@ -51,9 +43,4 @@ io.on('connection', function (socket) {
 
 });
 
-// app.use('/images', express.static(__dirname + "/images"));
-
-
-// http.listen(8080, function(){
-//
-// });
+app.use('/images', express.static(__dirname + "/images"));
