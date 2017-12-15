@@ -14,9 +14,7 @@
   <body>
     <div class="fullBg" id="fullBg"></div>
     <div id="bgTransition">
-        <div class="header">
-            <img src="images/header.png">
-        </div>
+
     </div>
     <div class="image-over" id="lights-1" style="background:url(images/gif-lights-1.gif); center center"></div>
     <div class="image-over" id="lights-2" style="background:url(images/gif-lights-2.gif); center center"></div>
@@ -26,6 +24,9 @@
     <div class="image-over" id="tree" style="background:url(images/gif-tree.gif); center center"></div>
     <div class="image-over" id="snow-red" style="background:url(images/gif-snow-red.gif); center center"></div>
     <div id="campuses">
+        <div class="header">
+            <img src="images/header.png">
+        </div>
       <h1>Select Your Campus</h1>
       <button type="button" class="btn button--aylen campus-btn" data-campus="bannin">BANNIN</button>
       <button type="button" class="btn button--aylen campus-btn" data-campus="east_valley">EAST VALLEY</button>
@@ -45,13 +46,11 @@
       }
 
       #campuses{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        max-width: 300px;
-        width: 100%;
-        transform: translate(-50%, -50%);
-        z-index: 3;
+          position: relative;
+          max-width: 300px;
+          margin: 0px auto;
+          padding: 30px 0px;
+          z-index: 3;
       }
 
       #bgTransition{
@@ -69,17 +68,6 @@
           content: '';
           clear: both;
           display: block;
-      }
-
-      #bgTransition .header{
-          text-align: center;
-          max-width: 200px;
-          margin: 0 auto;
-          margin-top: 30px;
-      }
-
-      #bgTransition .header img{
-          width: 100%;
       }
 
       .btn {
@@ -156,6 +144,18 @@
         background-size: cover!important;
         opacity: 0;
     }
+
+    .header{
+        text-align: center;
+        max-width: 200px;
+        margin: 0px auto;
+        margin-bottom: 30px;
+    }
+
+    .header img{
+        width: 100%;
+    }
+
     </style>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
