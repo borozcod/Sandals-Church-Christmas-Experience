@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Christmas Experience - Admin</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      .fullBg {position: absolute; width:100%; height: 100%; background-color: #000;}
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,700i" rel="stylesheet">
+  </head>
+  <body>
+    <div class="fullBg" id="fullBg"></div>
+    <div id="bgTransition">
+        <div class="header">
+            <img src="images/header.png">
+        </div>
+    </div>
+    <div class="image-over" id="lights-1" style="background:url(images/gif-lights-1.gif); center center"></div>
+    <div class="image-over" id="lights-2" style="background:url(images/gif-lights-2.gif); center center"></div>
+    <div class="image-over" id="lights-green" style="background:url(images/gif-lights-green.gif); center center"></div>
+    <div class="image-over" id="snow-blue" style="background:url(images/gif-snow-blue.gif); center center"></div>
+    <div class="image-over" id="candle" style="background:url(images/gif-candle.gif); center center"></div>
+    <div class="image-over" id="tree" style="background:url(images/gif-tree.gif); center center"></div>
+    <div class="image-over" id="snow-red" style="background:url(images/gif-snow-red.gif); center center"></div>
+    <div id="campuses">
+      <h1>Select Your Campus</h1>
+      <button type="button" class="btn button--aylen campus-btn" data-campus="bannin">BANNIN</button>
+      <button type="button" class="btn button--aylen campus-btn" data-campus="east_valley">EAST VALLEY</button>
+      <button type="button" class="btn button--aylen campus-btn" data-campus="hunter_park">HUNTER PARK</button>
+      <button type="button" class="btn button--aylen campus-btn" data-campus="montclair">MONTCLAIR POP-UP</button>
+      <button type="button" class="btn button--aylen campus-btn" data-campus="moreno_valley">MORENO VALLEY</button>
+      <button type="button" class="btn button--aylen campus-btn" data-campus="wppdcrest">WOODCREST</button>
+    </div>
+    <style>
+      h1{
+          color:#fff;
+          font-family: 'Roboto', sans-serif;
+          font-style: italic;
+          text-transform: uppercase;
+          font-weight: 700;
+          text-align: center;
+      }
+
+      #campuses{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        max-width: 300px;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+      }
+
+      #bgTransition{
+        background-color: #000000;
+        position: absolute;
+        width: 100%;
+        right: 0px;
+        height: 100%;
+        bottom: 0px;
+        left: 0px;
+        z-index: 2;
+        }
+
+      #bgTransition::after{
+          content: '';
+          clear: both;
+          display: block;
+      }
+
+      #bgTransition .header{
+          text-align: center;
+          max-width: 200px;
+          margin: 0 auto;
+          margin-top: 30px;
+      }
+
+      #bgTransition .header img{
+          width: 100%;
+      }
+
+      .btn {
+    	min-width: 150px;
+    	min-width: 200px;
+        border-radius: 8px;
+    	display: block;
+    	margin: 15px auto;
+    	padding: 1em 2em;
+    	border: none;
+    	vertical-align: middle;
+    	position: relative;
+    	z-index: 1;
+    	-webkit-backface-visibility: hidden;
+    	-moz-osx-font-smoothing: grayscale;
+    }
+
+    .button:focus {
+    	outline: none;
+    }
+
+    .btn.button--aylen {
+    	background: #fff;
+    	color: #000000;
+    	overflow: hidden;
+    	-webkit-transition: color 0.3s;
+    	transition: color 0.3s;
+    }
+
+    .button--aylen::before,
+    .button--aylen::after {
+    	content: '';
+    	position: absolute;
+    	height: 100%;
+    	width: 100%;
+    	bottom: 100%;
+    	left: 0;
+    	z-index: -1;
+    	-webkit-transition: -webkit-transform 0.3s;
+    	transition: transform 0.3s;
+    	-webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+    	transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+    }
+
+    .button--aylen::before {
+    	background: #414042;
+    }
+
+    .button--aylen::after {
+    	background: #000;
+    }
+
+    .button--aylen:hover {
+    	color: #fff;
+    }
+
+    .button--aylen:hover::before,
+    .button--aylen:hover::after {
+    	-webkit-transform: translate3d(0, 100%, 0);
+    	transform: translate3d(0, 100%, 0);
+    }
+
+    .button--aylen:hover::after {
+    	-webkit-transition-delay: 0.175s;
+    	transition-delay: 0.175s;
+    }
+
+    .image-over{
+        position: fixed;
+        background-position: 50% 100%!important;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat!important;
+        background-size: cover!important;
+        opacity: 0;
+    }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+    <script>
+      var socket = io();
+      var campus = '';
+      var tl = new TimelineMax();
+
+      $('.campus-btn').click(function(){
+
+        campus = $(this).data('campus');
+        tl.to("#campuses", 1, { ease: Expo.easeOut, opacity: 0, display:'none'})
+        .to("#bgTransition", 1, {ease: Expo.easeOut, height:'0px', opacity: 0, display:'none'}, "-=0.25");
+        socket.emit(`check campus`, {campus: campus});
+
+        socket.on(`${campus}`, function (data) {
+          console.log(data);
+            TweenMax.to(".image-over", 0.5, {opacity:0});
+            if(data.call == 'color'){
+                TweenMax.to("#fullBg", 0.5, {backgroundColor:data.color});
+            }else{
+              TweenMax.to(`#${data.gif}`, 0.5, {opacity:1});
+            }
+        });
+      });
+
+
+    </script>
+  </body>
+</html>

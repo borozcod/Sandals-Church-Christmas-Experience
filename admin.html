@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Christmas Experience - Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,700i" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container">
+    <div class="row justify-content-md-center" >
+      <div class="col-md-12-center" id="controls">
+        <h1>Controls</h1>
+        <button type="button" data-color="#fff" class="btn btn-primary color-btn" style="background-color:#fff; color:#000;">White</button>
+        <button type="button" data-color="#ff0000" class="btn btn-primary color-btn" style="background-color:#ff0000;">Red</button>
+        <button type="button" data-color="#00A651" class="btn btn-primary color-btn" style="background-color:#00A651;">Green</button>
+        <button type="button" data-color="#fff300" class="btn btn-primary color-btn" style="background-color:#fff300;">Yellow</button>
+        <button type="button" data-gif="lights-1" class="btn btn-primary gif-btn"><img src="images/gif-lights-1.gif"></button>
+        <button type="button" data-gif="lights-2" class="btn btn-primary gif-btn"><img src="images/gif-lights-2.gif"></button>
+        <button type="button" data-gif="lights-green" class="btn btn-primary gif-btn"><img src="images/gif-lights-green.gif"></button>
+        <button type="button" data-gif="snow-blue" class="btn btn-primary gif-btn"><img src="images/gif-snow-blue.gif"></button>
+        <button type="button" data-gif="snow-red" class="btn btn-primary gif-btn"><img src="images/gif-snow-red.gif"></button>
+        <button type="button" data-gif="candle" class="btn btn-primary gif-btn"><img src="images/gif-candle.gif"></button>
+
+      </div>
+      <div class="col-md-12-center" id="campuses">
+        <h1>Select Campus</h1>
+        <button type="button" class="btn btn-light campus-btn" data-campus="bannin">BANNIN</button>
+        <button type="button" class="btn btn-light campus-btn" data-campus="east_valley">EAST VALLEY</button>
+        <button type="button" class="btn btn-light campus-btn" data-campus="hunter_park">HUNTER PARK</button>
+        <button type="button" class="btn btn-light campus-btn" data-campus="montclair">MONTCLAIR POP-UP</button>
+        <button type="button" class="btn btn-light campus-btn" data-campus="moreno_valley">MORENO VALLEY</button>
+        <button type="button" class="btn btn-light campus-btn" data-campus="wppdcrest">WOODCREST</button>
+      </div>
+    </div>
+  </div>
+  <style>
+      body { font: 13px Helvetica, Arial; background-color: #000;}
+      .fullBg {position: absolute; width:100%; height: 100%;}
+      #controls{
+        display: none;
+      }
+
+      #controls {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+        }
+
+      h1{
+          color:#fff;
+          font-family: 'Roboto', sans-serif;
+          font-style: italic;
+          text-transform: uppercase;
+          font-weight: 700;
+          text-align: center;
+      }
+
+      #campuses .btn{
+        display: block;
+        margin: 20px auto;
+        border: none;
+        padding: 10px 20px;
+        min-width: 200px;
+        background-color: #fff;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      #controls .btn{
+        display: inline-block;
+        margin: 20px;
+        min-width: 200px;
+        border: none;
+        padding: 10px 20px;
+        font-family: 'Roboto', sans-serif;
+        border-radius: 8px;
+        background-color: #fff;
+      }
+
+      #controls .gif-btn{
+        min-width: 200px;
+        height: auto;
+        max-width: 200px;
+      }
+      #controls .gif-btn img{
+        width: 100%;
+      }
+
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+      var data = {
+        campus: '',
+        color: '',
+        gif: '',
+        call: '',
+      }
+
+      $('.campus-btn').click(function(){
+        data.campus = $(this).data('campus');
+        $('#campuses').fadeOut();
+        $('#controls').fadeIn();
+      });
+
+      $('.color-btn').click(function(){
+          data.color = $(this).data('color');
+          data.call = 'color';
+          socket.emit('change scene', data );
+      });
+
+      $('.gif-btn').click(function(){
+          data.gif = $(this).data('gif');
+          data.call = 'gif';
+          socket.emit('change scene', data );
+      });
+
+    </script>
+  </body>
+</html>
