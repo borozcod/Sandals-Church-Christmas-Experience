@@ -172,7 +172,7 @@
       $('.campus-btn').click(function(){
 
         campus = $(this).data('campus');
-        tl.to("#campuses", 1, { ease: Expo.easeOut, opacity: 0, display:'none'})
+        tl.to("#campuses", 1, { ease: Expo.easeOut, opacity: 0, display:'none', delay:0.5})
         .to("#bgTransition", 1, {ease: Expo.easeOut, height:'0px', display:'none'}, "-=0.25");
         socket.emit(`check campus`, {campus: campus});
 
