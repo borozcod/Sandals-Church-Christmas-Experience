@@ -9,6 +9,11 @@ app.get('/', function(req, res){
 
 });
 
+
+app.get('/loaderio-5067cac43681e8808ae13ad6ea59e117', function(req, res){
+  res.sendFile(__dirname + '/loaderio-5067cac43681e8808ae13ad6ea59e117.html');
+});
+
 app.get('/admin', function(req, res){
   res.sendFile(__dirname + '/admin.html');
 
