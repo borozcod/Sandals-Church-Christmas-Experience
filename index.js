@@ -9,11 +9,6 @@ app.get('/', function(req, res){
 
 });
 
-
-app.get('/loaderio-5067cac43681e8808ae13ad6ea59e117', function(req, res){
-  res.sendFile(__dirname + '/loaderio-5067cac43681e8808ae13ad6ea59e117.html');
-});
-
 app.get('/admin', function(req, res){
   res.sendFile(__dirname + '/admin.html');
 
@@ -22,9 +17,11 @@ app.get('/admin', function(req, res){
 var color = "#000";
 var campus = '';
 var campusData = {};
+var connections = 0;
 
 io.on('connection', function (socket) {
-
+    connections++;
+    io.sockets.emit(`connection count`,  connections);
     //Check for the initial connection. If campusData has been changed updated the client
     socket.on('check campus', function (data) {
       var campusCheck  = data.campus;
