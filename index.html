@@ -174,7 +174,9 @@
       var tl = new TimelineMax();
 
       $(document).ready(function(){
+
           socket.on(`connection count`, function (data) {
+              console.log(data);
             $('#connections').text(data);
           });
       });

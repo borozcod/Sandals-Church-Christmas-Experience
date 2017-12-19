@@ -20,8 +20,8 @@ var campusData = {};
 var connections = 0;
 
 io.on('connection', function (socket) {
-    connections++;
-    io.sockets.emit(`connection count`,  connections);
+    var clients =  io.engine.clientsCount
+    io.sockets.emit(`connection count`,  clients);
     //Check for the initial connection. If campusData has been changed updated the client
     socket.on('check campus', function (data) {
       var campusCheck  = data.campus;
@@ -39,5 +39,6 @@ io.on('connection', function (socket) {
     });
 
 });
+
 
 app.use('/images', express.static(__dirname + "/images"));
