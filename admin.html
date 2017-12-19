@@ -12,6 +12,7 @@
     <div class="row justify-content-md-center" >
       <div class="col-md-12-center" id="controls">
         <h1>Controls</h1>
+        <h1 id="connections"></h1>
         <button type="button" data-color="#fff" class="btn btn-primary color-btn" style="background-color:#fff; color:#000;">White</button>
         <button type="button" data-color="#ED1C24" class="btn btn-primary color-btn" style="background-color:#ED1C24;">Red</button>
         <button type="button" data-color="#00A651" class="btn btn-primary color-btn" style="background-color:#00A651;">Green</button>
@@ -115,6 +116,10 @@
           data.gif = $(this).data('gif');
           data.call = 'gif';
           socket.emit('change scene', data );
+      });
+
+      socket.on(`connection count`, function (data) {
+        $('#connections').text(data);
       });
 
     </script>

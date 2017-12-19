@@ -26,8 +26,6 @@
             <img src="images/header.png">
         </div>
       <h1>Select Your Campus</h1>
-      <h1 id="connections"></h1>
-      <h1 id="connections2"></h1>
       <button type="button" class="btn button--aylen campus-btn" data-campus="banning">BANNING</button>
       <button type="button" class="btn button--aylen campus-btn" data-campus="east_valley">EAST VALLEY</button>
       <button type="button" class="btn button--aylen campus-btn" data-campus="hunter_park">HUNTER PARK</button>
@@ -174,17 +172,6 @@
       var campus = '';
       var tl = new TimelineMax();
 
-      $(document).ready(function(){
-
-          socket.on(`connection count`, function (data) {
-            $('#connections').text(data);
-          });
-
-          socket.on(`connection count 2`, function (data) {
-            $('#connections2').text(data);
-          });
-      });
-
       $('.campus-btn').click(function(){
 
         campus = $(this).data('campus');
@@ -201,6 +188,7 @@
               TweenMax.to(`#${data.gif}`, 0.5, {opacity:1});
             }
         });
+
       });
 
 
