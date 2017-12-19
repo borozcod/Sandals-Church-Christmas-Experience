@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-http.listen(process.env.PORT || 3000);
+http.listen(process.env.PORT || 8081);
 
 app.get('/loaderio-5067cac43681e8808ae13ad6ea59e117', function(req, res){
   res.sendFile(__dirname + '/loaderio-5067cac43681e8808ae13ad6ea59e117.html');
@@ -22,10 +22,14 @@ var color = "#000";
 var campus = '';
 var campusData = {};
 var connections = 0;
+var connections2 = 0;
 
 io.on('connection', function (socket) {
+    connections++;
+    connections2++;
     var clients =  io.engine.clientsCount
     io.sockets.emit(`connection count`,  clients);
+    io.sockets.emit(`connection count 2`,  connections2);
     //Check for the initial connection. If campusData has been changed updated the client
     socket.on('check campus', function (data) {
       var campusCheck  = data.campus;
@@ -41,6 +45,11 @@ io.on('connection', function (socket) {
         campusData[`${campus}`] = data;
         io.sockets.emit(`${campus}`,  data);
     });
+
+    socket.on('disconnected', function() {
+        connections--;
+        io.sockets.emit(`connection count`,  clients);
+   });
 
 });
 
