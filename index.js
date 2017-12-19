@@ -4,6 +4,10 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 http.listen(process.env.PORT || 3000);
 
+app.get('/loaderio-5067cac43681e8808ae13ad6ea59e117', function(req, res){
+  res.sendFile(__dirname + '/loaderio-5067cac43681e8808ae13ad6ea59e117.html');
+});
+
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 
