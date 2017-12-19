@@ -21,13 +21,12 @@ app.get('/admin', function(req, res){
 var color = "#000";
 var campus = '';
 var campusData = {};
-var connections = 0;
+
 
 io.on('connection', function (socket) {
-    connections++;
 
-    var clients =  io.engine.clientsCount
-    io.sockets.emit(`connection count`,  clients);
+    // var clients =  io.engine.clientsCount
+    // io.sockets.emit(`connection count`,  clients);
     //Check for the initial connection. If campusData has been changed updated the client
     socket.on('check campus', function (data) {
       var campusCheck  = data.campus;
@@ -43,11 +42,6 @@ io.on('connection', function (socket) {
         campusData[`${campus}`] = data;
         io.sockets.emit(`${campus}`,  data);
     });
-
-    socket.on('disconnected', function() {
-        connections--;
-        io.sockets.emit(`connection count`,  clients);
-   });
 
 });
 

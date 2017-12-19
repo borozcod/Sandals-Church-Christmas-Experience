@@ -72,7 +72,7 @@
 
       #controls .btn{
         display: inline-block;
-        margin: 20px;
+        margin: 10px;
         min-width: 200px;
         border: none;
         padding: 10px 10px;
@@ -119,9 +119,9 @@
           socket.emit('change scene', data );
       });
 
-      socket.on(`connection count`, function (data) {
-        $('#connections').text(data);
-      });
+      // socket.on(`connection count`, function (data) {
+      //   $('#connections').text(data);
+      // });
 
     </script>
   </body>
