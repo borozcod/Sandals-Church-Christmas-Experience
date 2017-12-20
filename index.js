@@ -47,3 +47,5 @@ io.on('connection', function (socket) {
 
 
 app.use('/images', express.static(__dirname + "/images"));
+
+app.use('/js', express.static(__dirname + "/js"));

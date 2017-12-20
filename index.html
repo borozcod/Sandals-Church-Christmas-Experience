@@ -18,8 +18,7 @@
     <div class="image-over" id="lights-2" style="background:url(images/gif-lights-2.gif); center center"></div>
     <div class="image-over" id="lights-green" style="background:url(images/gif-lights-green.gif); center center"></div>
     <div class="image-over" id="snow-blue" style="background:url(images/gif-snow-blue.gif); center center"></div>
-    <div class="image-over" id="candle" style="background:url(images/gif-candle.gif); center center"></div>
-    <div class="image-over" id="tree" style="background:url(images/gif-tree.gif); center center"></div>
+    <div class="image-over" id="candle" style="background:url(images/gif-candle.gif); center center"></div>    
     <div class="image-over" id="snow-red" style="background:url(images/gif-snow-red.gif); center center"></div>
     <div id="campuses">
         <div class="header">
@@ -122,13 +121,20 @@
     </style>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+    <script src="js/nosleep.js"></script>
     <script>
       var socket = io();
       var campus = '';
       var tl = new TimelineMax();
+      var noSleep = new NoSleep();
+
+      function enableNoSleep() {
+          noSleep.enable();
+          document.removeEventListener('click', enableNoSleep, false);
+        }
 
       $('.campus-btn').click(function(){
-
+          enableNoSleep();
         campus = $(this).data('campus');
         tl.to("#campuses", 1, { ease: Expo.easeOut, opacity: 0, display:'none', delay:0.5})
         .to("#bgTransition", 1, {ease: Expo.easeOut, height:'0px', display:'none'}, "-=0.25");

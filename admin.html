@@ -81,6 +81,10 @@
         background-color: #fff;
       }
 
+      #controls .gif-btn:focus{
+          background-color: #ff7775;
+      }
+
       #controls .gif-btn{
         min-width: 200px;
         height: auto;
@@ -118,10 +122,6 @@
           data.call = 'gif';
           socket.emit('change scene', data );
       });
-
-      // socket.on(`connection count`, function (data) {
-      //   $('#connections').text(data);
-      // });
 
     </script>
   </body>
